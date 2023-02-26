@@ -6,11 +6,11 @@ app.all('/', (req, res) => {
 })
 
 app.get('/sam', (req, res) => {
-    const key = req.pass;
+    const key = req.query.pass;
     if (key=="2550") {
-        res.send(key);
+        res.send('auth successful');
     } else {
-        res.send(key);
+        res.send('auth failed');
     }
 })
 app.listen(process.env.PORT || 3000)
