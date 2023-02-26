@@ -8,7 +8,7 @@ app.all('/', (req, res) => {
 app.get('/sam', (req, res) => {
     const key = req.pass;
     if (key=="2550") {
-        res.send("auth completed");
+        res.send(key);
     } else {
         res.send("auth failed");
     }
