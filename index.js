@@ -10,7 +10,7 @@ app.get('/sam', (req, res) => {
     if (key=="2550") {
         res.send(key);
     } else {
-        res.send("auth failed");
+        res.send(key);
     }
 })
 app.listen(process.env.PORT || 3000)
