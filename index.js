@@ -1,37 +1,58 @@
-const express = require('express');
-const app = express();
-const port = 3000;
+const express = require('express')
+const app = express()
+let buffer =[];
+app.all('/', (req, res) => {
+    console.log("Just got a request!")
+    res.send('Yo!')
+})
 
-// In-memory list of messages
-const messages = [];
+app.get('/s', (req, res) => {
+    const key = req.query.msg;
+    console.log("s: " + key);
+    buffer.push("s: " + key);
+    // if (key=="2550") {
+    //     res.send('auth successful');
+    // } else {
+    //     res.send('auth failed');
+    // }
 
-// Serve the chat page
-app.get('/chat', (req, res) => {
-  const name = req.query.name;
-  const lastMessageTime = new Date().toISOString();
+    res.send(buffer);
+})
 
-  // Return last 10 messages and current time
-  const recentMessages = messages.slice(-10);
-  res.json({ lastMessageTime, recentMessages });
-});
+app.get('/g', (req, res) => {
+    const key = req.query.msg;
+    console.log("g: " + key);
+    buffer.push("g: "+ key);
+    // if (key=="2550") {
+    //     res.send('auth successful');
+    // } else {
+    //     res.send('auth failed');
+    // }
 
-// Handle incoming messages
-app.post('/messages', express.urlencoded({ extended: true }), (req, res) => {
-  const name = req.query.name;
-  const text = req.query.text;
-  const timestamp = new Date().toISOString();
+    res.send(buffer);
+})
 
-  // Add message to list
-  messages.push({ sender: name, text, timestamp });
+app.get('/g/get', (req, res) => {
+    //const key = req.query.msg;
+    //buffer.push("g: "+ key);
+    // if (key=="2550") {
+    //     res.send('auth successful');
+    // } else {
+    //     res.send('auth failed');
+    // }
 
-  // Send response
-  res.sendStatus(200);
-});
+    res.send(buffer);
+})
 
-// Serve static files
-app.use(express.static('public'));
+app.get('/s/get', (req, res) => {
+    //const key = req.query.msg;
+    //buffer.push("g: "+ key);
+    // if (key=="2550") {
+    //     res.send('auth successful');
+    // } else {
+    //     res.send('auth failed');
+    // }
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
-});
+    res.send(buffer);
+})
+app.listen(process.env.PORT || 3000)
