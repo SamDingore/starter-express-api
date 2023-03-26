@@ -7,7 +7,7 @@ app.all('/', (req, res) => {
 })
 
 app.get('/s', (req, res) => {
-    const key = req.query.pass;
+    const key = req.query.m;
     buffer.push("s " + key);
     // if (key=="2550") {
     //     res.send('auth successful');
@@ -19,7 +19,7 @@ app.get('/s', (req, res) => {
 })
 
 app.get('/g', (req, res) => {
-    const key = req.query.pass;
+    const key = req.query.m;
     buffer.push("g: "+ key);
     // if (key=="2550") {
     //     res.send('auth successful');
