@@ -15,6 +15,6 @@ app.get('/sam', (req, res) => {
     //     res.send('auth failed');
     // }
 
-    res.send(buffer[buffer.length-1]);
+    res.send(buffer);
 })
 app.listen(process.env.PORT || 3000)
