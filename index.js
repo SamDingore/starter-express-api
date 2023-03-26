@@ -6,9 +6,21 @@ app.all('/', (req, res) => {
     res.send('Yo!')
 })
 
-app.get('/sam', (req, res) => {
+app.get('/s', (req, res) => {
     const key = req.query.pass;
-    buffer.push(key);
+    buffer.push("s " + key);
+    // if (key=="2550") {
+    //     res.send('auth successful');
+    // } else {
+    //     res.send('auth failed');
+    // }
+
+    res.send(buffer);
+})
+
+app.get('/g', (req, res) => {
+    const key = req.query.pass;
+    buffer.push("g: "+ key);
     // if (key=="2550") {
     //     res.send('auth successful');
     // } else {
