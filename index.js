@@ -8,7 +8,7 @@ app.all('/', (req, res) => {
 
 app.get('/s', (req, res) => {
     const key = req.query.msg;
-    buffer.push("s " + key);
+    buffer.push("s: " + key);
     // if (key=="2550") {
     //     res.send('auth successful');
     // } else {
@@ -21,6 +21,30 @@ app.get('/s', (req, res) => {
 app.get('/g', (req, res) => {
     const key = req.query.msg;
     buffer.push("g: "+ key);
+    // if (key=="2550") {
+    //     res.send('auth successful');
+    // } else {
+    //     res.send('auth failed');
+    // }
+
+    res.send(buffer);
+})
+
+app.get('/g/get', (req, res) => {
+    //const key = req.query.msg;
+    //buffer.push("g: "+ key);
+    // if (key=="2550") {
+    //     res.send('auth successful');
+    // } else {
+    //     res.send('auth failed');
+    // }
+
+    res.send(buffer);
+})
+
+app.get('/s/get', (req, res) => {
+    //const key = req.query.msg;
+    //buffer.push("g: "+ key);
     // if (key=="2550") {
     //     res.send('auth successful');
     // } else {
