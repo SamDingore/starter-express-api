@@ -1,58 +1,31 @@
-const express = require('express')
-const app = express()
-let buffer =[];
-app.all('/', (req, res) => {
-    console.log("Just got a request!")
-    res.send('Yo!')
-})
+const express = require('express');
+const http = require('http');
+const { Server } = require('socket.io');
+const cors = require('cors'); // Import the cors middleware.
 
-app.get('/s', (req, res) => {
-    const key = req.query.msg;
-    console.log("s: " + key);
-    buffer.push("s: " + key);
-    // if (key=="2550") {
-    //     res.send('auth successful');
-    // } else {
-    //     res.send('auth failed');
-    // }
+const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
 
-    res.send(buffer);
-})
+app.use(cors()); // Enable CORS for all routes.
 
-app.get('/g', (req, res) => {
-    const key = req.query.msg;
-    console.log("g: " + key);
-    buffer.push("g: "+ key);
-    // if (key=="2550") {
-    //     res.send('auth successful');
-    // } else {
-    //     res.send('auth failed');
-    // }
+app.get('/', (req, res) => {
+  res.send('Server is running');
+});
 
-    res.send(buffer);
-})
+io.on('connection', (socket) => {
+  console.log('A user connected');
 
-app.get('/g/get', (req, res) => {
-    //const key = req.query.msg;
-    //buffer.push("g: "+ key);
-    // if (key=="2550") {
-    //     res.send('auth successful');
-    // } else {
-    //     res.send('auth failed');
-    // }
+  socket.on('message', (data) => {
+    console.log(`Message received: ${data}`);
+    io.emit('message', data);
+  });
 
-    res.send(buffer);
-})
+  socket.on('disconnect', () => {
+    console.log('A user disconnected');
+  });
+});
 
-app.get('/s/get', (req, res) => {
-    //const key = req.query.msg;
-    //buffer.push("g: "+ key);
-    // if (key=="2550") {
-    //     res.send('auth successful');
-    // } else {
-    //     res.send('auth failed');
-    // }
-
-    res.send(buffer);
-})
-app.listen(process.env.PORT || 3000)
+server.listen(3001, () => {
+  console.log('Server is running on port 3001');
+});
